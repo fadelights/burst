@@ -3,10 +3,13 @@ use std::time::Duration;
 
 
 fn main() {
-    // branches(420);
-    // infinite_loop();
-    // break_loop(27);
-    label_loop()
+    branches(420);
+    // _infinite_loop();
+    break_loop(27);
+    label_loop();
+    while_loop();
+    for_loop();
+    for_loop_range();
 }
 
 
@@ -27,7 +30,7 @@ fn branches(x: i32) {
 }
 
 
-fn infinite_loop() {
+fn _infinite_loop() {
     // only stops when interrupted by ^C (Ctrl + C) or `break`
     loop {
         println!("Again!");
@@ -71,4 +74,31 @@ fn label_loop() {
     }
 
     println!("Final count: {count}");
+}
+
+
+fn while_loop() {
+    let mut number = 3;
+
+    while number > 0 {
+        println!("{number}");
+        number -= 1;
+    }
+
+    println!("LIFTOFF!")
+}
+
+
+fn for_loop() {
+    let names: [&str; 4] = ["Mani", "Armita", "Marina", "Saeid"];
+    for name in names {
+        println!("My name is {name}");
+    }
+}
+
+
+fn for_loop_range() {
+    for i in 1..7 {
+        println!("{i}");
+    }
 }
