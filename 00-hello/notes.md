@@ -85,9 +85,10 @@ Here's a quick rundown of available Cargo commands:
 this is the quick way to compile your source code for rapid
 development and testing. Places the executable in `target/debug/`
 - `cargo build --release`: Builds your project for release --
-takes longer to compile but does more optimizations.
+takes longer to compile but does more optimizations
 Places the executable in `target/release/`
 - `cargo run`: Builds and runs your project
+- `cargo check`: Checks if your code will compile or not
 
 By using `cargo run`, you don't have to manually build and run your
 code in separate steps anymore.
