@@ -1,14 +1,13 @@
+const PI: f64 = 3.141592;
+
 fn main() {
-    let x = 5;
-    println!("The value of x is: {x}");
+    println!("The password for AUT's Math Faculty WiFi is: {PI}");
 
-    let x = 2*x;
-    println!("The value of x is: {x}");
-
+    let age = 13;
+    println!("A pretty young lad was {age} years old...");
     {
-        let x = 50;
-        println!("The value of [inner-scope] x is: {x}");
+        let age = 23;
+        println!("But he grew to the age of {age} -- pretty old!");
     }
-
-    println!("The value of x [outer-scope] is: {x}");
+    println!("Drank from the fountainhead waters... now he is {age} again!");
 }
