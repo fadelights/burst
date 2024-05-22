@@ -14,8 +14,8 @@ string with a comma-separated list of expressions to print in each empty
 curly bracket placeholder in the same order.
 ```rust
 let a = 10;
-println!("{}, {}, {}", a, a * 10, a * 100);
-println!("{a}, {}, {}", a * 10, a * 100); // alternative
+println!("{a}, {}, {}", a * 10, a * 100);
+println!("{}, {}, {}", a, a * 10, a * 100); // alternative -- single variables are expressions too!
 ```
 
 ## Mutability
