@@ -79,7 +79,7 @@ The `Cargo.toml` file contains info about the project's configuration
 and dependencies. It can be used to reproduce your project in another
 environment such as your buddy's new fancy MacBook Pro(TM).
 
-Here's a quick rundown of available Cargo commands:
+Here's a quick rundown of some available Cargo commands:
 - `cargo new`: Creates a new project
 - `cargo build`: Builds (compiles) your project --
 this is the quick way to compile your source code for rapid
