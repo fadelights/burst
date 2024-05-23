@@ -1,33 +1,47 @@
+/* In Rust, the compiler will throw a warning when
+faced with unused variables in the program. To disable
+such warnings, you can prefix your variable name with
+a `_`. As such, you will be seeing many variables with
+`_` behind their name in the next few lessons. */
+
 fn main() {
     // numeric literals
-    let decimal: i64 = 1_000;
-    let decimal_suffixed = 1_000_000u64;
+    let decimal: i64 = 1_234_789;
+    let decimal_suffixed = 1_000_000u64; // pay attention to the suffixed type
+    let hex: i32 = 0xffff;
+    let octal = 0o77i16; // suffixed type
+
+    println!("Examples of numeric literals printed: ");
+
     println!("{decimal}");
     println!("{decimal_suffixed}");
-
-    let hex: i32 = 0xffff;
     println!("{hex}");
+    println!("{octal}\n");
 
-    let octal = 0o77i16;
-    println!("{octal}");
+    // floating-point literals
+    let double_fp = 2.0;
+    let single_fp: f32 = 3.0;
+    let single_fp_suffixed = 4.0f32; // suffixed type
 
-    // prefixing variables with _ disables compiler warnings for unused variables
-    let _double_fp = 2.0;
-    let _single_fp: f32 = 3.0;
-    let _single_fp_suffixed = 4.0f32;
+    println!("Examples of floating point literals printed: ");
 
-    // compound types
+    println!("{double_fp}");
+    println!("{single_fp}");
+    println!("{single_fp_suffixed}\n");
+
     // tuples
     let tuple: (i32, f32, char) = (12, 42.3, 'a');
-    let (_x, _y, _z) = tuple;
+    println!("tuple.0 is {}", tuple.0);
 
-    // accessing via indices
-    let _x = tuple.0;
-    let _y = tuple.1;
+    // tuple deconstruction
+    let (x, y, z) = tuple;
+    println!("Deconstructed tuple: {}, {}, {}\n", x, y, z);
 
     // arrays
-    let _array: [isize; 3] = [12, 72, 89];
+    let array: [isize; 3] = [12, 72, 89];
+    println!("array[1] is {}", array[1]);
 
     // arrays with repeated value
-    let _repeated = [0; 3]; // [0, 0, 0]
+    let repeated = [0; 300]; // [0, 0, 0, ..., 0]
+    println!("The repeated array's length is {}", repeated.len());
 }
