@@ -1,9 +1,3 @@
-/* In Rust, the compiler will throw a warning when
-faced with unused variables in the program. To disable
-such warnings, you can prefix your variable name with
-a `_`. As such, you will be seeing many variables with
-`_` behind their name in the next few lessons. */
-
 fn main() {
     // numeric literals
     let decimal: i64 = 1_234_789;
