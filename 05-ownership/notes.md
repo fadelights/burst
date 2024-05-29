@@ -69,3 +69,46 @@ https://en.wikipedia.org/wiki/Morris_worm
     let first_clone = first.clone();
     ```
     ![Cloning](media/clone.png)
+
+## References and Borrowing
+Using `clone`s can quickly become tedious.
+Say a function takes 2 arguments, then we would have to do 2 `clone`
+calls.
+
+### References, the Non-owning Pointers
+The expression `&x` is used to create a reference to a variable named `x`.
+In Rust jargon, the variable `x` is _borrowed_.
+
+<!-- TODO: Add visualization here -->
+
+```rust
+let name = String::from("Lucius");
+let nickname = &name;
+```
+
+In the example above, `nickname` does **not** own either
+`name` or `"Lucius"`. Because `nickname` doesn't own them, the
+originial variable (`name`) or its value (`"Lucius"`) will not be
+deallocated after the deallocation of the reference variable.
+
+> _References are non-owning pointers._
+
+The `*` operator is used for _dereferencing_.
+
+```rust
+let x = 10;
+let y = &x; // value of `y` is the address of `x`
+            // value of `*y` is 10
+```
+
+However, Rust implicitly inserts dereferences and references
+in certain cases, such as calling a method with the dot operator.
+
+```rust
+let x = Box::new(1);
+let p = &x; // `p` is a reference to `x`
+println("{}, {}", p, *p); // will print `1, 1` -- p is implicitly dereferenced
+```
+
+- This implicit conversion works for multiple layers of pointers
+- This conversion also works the opposite direction. The function `str::len` expects a reference `&str`. If you call `len` on an owned `String`, then Rust will insert a single borrowing operator

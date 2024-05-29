@@ -14,8 +14,16 @@ fn main() {
     drop(b);
     println!("{:?}", a); // even though `b` is dropped, `a` has maintained ownership of its data
 
+    // referencing in functions
+    let name = String::from("Franky");
+    greet(&name);
+
     // referencing and dereferencing
     let v = vec![1, 2, 3];
     let v0 = &v[0];
     println!("{}, {}", v0, *v0); // implicit and explicit dereferencing
+}
+
+fn greet(name: &String) {
+    println!("Welcome, dear {}!", name);
 }
