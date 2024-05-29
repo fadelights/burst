@@ -112,3 +112,107 @@ println("{}, {}", p, *p); // will print `1, 1` -- p is implicitly dereferenced
 
 - This implicit conversion works for multiple layers of pointers
 - This conversion also works the opposite direction. The function `str::len` expects a reference `&str`. If you call `len` on an owned `String`, then Rust will insert a single borrowing operator
+
+## Aliasing and Mutation
+- Pointers are dangerous because they allow _aliasing_ -- accessing the same data through different variables
+- Aliasing is harmless on its own, but combined with _mutation_ is a recipe for disaster
+    - The aliased data may be deallocated by another variable
+    - Concurrently mutating data may cause a data race
+
+As an example, the `vec!` macro creates a vector on the heap. This
+vector can be modified to add or remove elements, but in the process,
+it might deallocate the current memory location occupied, and allocate
+new memory elsewhere.
+
+```rust
+let mut v: Vec<i32> = vec![1, 2, 3];
+let num: &i32 = &v[2];
+v.push(4);
+println!("Third element is {}", *num);
+```
+![Dangers of aliasing](media/aliasing-danger.png)
+
+The issue is that the vector `v` is both aliased
+(by the reference `num`) and mutated (by the operation `v.push(4)`).
+
+> **Rust's Pointer Safety Principle:**
+> _Data should never be aliased and mutated at the same time._
+
+ Rust enforces this principle for boxes (owned pointers) by disallowing
+ aliasing. Assigning a box from one variable to another will move
+ ownership, invalidating the previous variable. Owned data can only be
+ accessed through the owner -- no aliases.
+
+However, because references are non-owning pointers, they need different
+rules than boxes to ensure the _Pointer Safety Principle_.
+
+## The Borrow Checker
+The core idea: Variables have three kinds of **permissions** on
+their data:
+1. Read (**R**): data can be copied to another location
+2. Write (**W**): data can be mutated in-place
+3. Own (**O**): data can be moved or dropped
+
+> _These permissions don't exist at runtime, only within the compiler._
+
+By default, a variable only has **RO** permissons. If it is defined with `mut`, it also has **W**
+
+> _Key idea: References can temporarily remove these permissions._
+
+An example, here is the permissions each variable gains/loses
+on its data **after** each line of the code:
+
+```rust
+let mut v: Vec<i32> = vec![1, 2, 3];
+/* v: +R, +W, +O (RWO) */
+
+let num: &i32 = &v[2];
+/* (Data is borrowed by `num`)
+v   :  R, -W, -O (R--)
+num : +R,   , +O (R-O)  (NOTE: `num` does not own the data of the vector, only the address which it holds!)
+*num: +R         (R--)
+*/
+
+println!("Third element is {}", *num);
+/* (`num` is no longer used, so its permissions are removed)
+v   :  R, +W, +O (RWO)
+num : -R,   , -O (---)
+*num: -R         (---)
+*/
+
+v.push(4);
+/* (After reaching the end of scope)
+v: -R, -W, -O (---)
+*/
+```
+
+- In simple terms: _Creating a reference to data ("borrowing" it) causes that data to be temporarily read-only until the reference is no longer used_
+- The borrow checker looks for potentially unsafe operations involving references
+- Each operation on the data of a variable requires some set pf permissions; e.g. `push` requires **RW**. If the variable does not have the necessary permissions, the borrow checker will throw an error
+
+### Mutable References
+- Can modify the data they point to
+- Denoted with `&mut`
+    ```rust
+    let mut v: Vec<i32> = vec![1, 2, 3];
+    let num: &mut i32 = &mut v[2]; // `num` will be a mutable reference
+    *num += 1; // v = [1, 2, 4]
+    ```
+- When `num` was an immutable reference, `v` still had the **R** permission. Now that `num` is a mutable reference, `v` has lost **all** permissions while `num` is in use
+- When `num` was an immutable reference, the path `*num` only had the **R** permission. Now that `num` is a mutable reference, `*num` has also gained the **W** permission
+- Mutable references can also be temporarily "downgraded" to read-only references
+    ```rust
+    ...
+    let num: &mut i32 = &mut v[2];
+    /*
+    num: +R, +W, (RW-)
+    */
+
+    let num2: &i32 = &*num;
+    /*
+    num :   , -W, (RW-)
+    num2: +R,   , (R--)
+    */
+    ```
+### Data Lifespan
+https://rust-book.cs.brown.edu/ch04-02-references-and-borrowing.html#data-must-outlive-all-of-its-references
