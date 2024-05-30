@@ -215,4 +215,23 @@ v: -R, -W, -O (---)
     */
     ```
 ### Data Lifespan
-https://rust-book.cs.brown.edu/ch04-02-references-and-borrowing.html#data-must-outlive-all-of-its-references
+As part of the _Pointer Safety Principle_:
+> _Data must outlive any references to it._
+
+This property is enforced in two ways:
+1. For data **inside** the funcion body, when data is borrowed, ownership is temporarily dropped -- hence preventing the use of `drop` (which requires ownership permission)
+1. For **input and output** parameters of a function, which the lifespan of a reference may be ambiguous, a new kind of permission is introduced: The _Flow_ permission; these will be discussed in later chapters. For now, just know that the error message `missing lifetime specifier` means an operation may be missing sufficient flow permissions
+
+## Summary
+- References provide the ability to read and write data without consuming ownership of it
+- References are created with borrows (`&` and `&mut`) and used with dereferences (`*`), often implicitly
+- Rust's borrow checker enforces a system of permissions that ensures references are used safely:
+    - All variables can read, own, and (optionally) write their data
+    - Creating a reference will transfer permissions from the borrowed **path** to the reference
+    - Permissions are returned once the reference's lifetime has ended
+    - Data must outlive all references that point to it
+- This system allows Rust to not need a garbage collector (increasing speed), while also avoiding undefined behavior (increasing safety)
+
+Refer to the Rust book's chapter on
+[Fixing Ownership Errors](https://rust-book.cs.brown.edu/ch04-03-fixing-ownership-errors.html)
+for a few example case studies.
