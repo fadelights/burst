@@ -1,6 +1,9 @@
 #include <stdio.h>
 
 int main() {
-    float x;
-    printf("%d\n", x);
+    int x[5];
+
+    for (int i = 0; i < 5; i++) {
+        printf("%d\n", x[i]);
+    }
 }
