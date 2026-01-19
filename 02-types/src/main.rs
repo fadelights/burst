@@ -4,13 +4,15 @@ fn main() {
     let decimal_suffixed = 1_000_000u64; // pay attention to the suffixed type
     let hex: i32 = 0xffff;
     let octal = 0o77i16; // suffixed type
+    let binary: i8 = -0b10000000; // this binary is converted to two's complement format by rust itself, which is why we can use the `-` sign along with all 8 bits here
 
     println!("Examples of numeric literals printed: ");
 
     println!("{decimal}");
     println!("{decimal_suffixed}");
     println!("{hex}");
-    println!("{octal}\n");
+    println!("{octal}");
+    println!("{binary}\n");
 
     // floating-point literals
     let double_fp = 2.0;
