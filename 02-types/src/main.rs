@@ -29,6 +29,14 @@ fn main() {
     let tuple: (i32, f32, char) = (12, 42.3, 'a');
     println!("tuple.0 is {}", tuple.0);
 
+    // You may not change the size of the tuple, but you can change the values
+    let mut tuple = (true, 1, 'A');
+    println!("tuple.0 is {}", tuple.0);
+
+    tuple.0 = false;
+    println!("tuple.0 is now {}", tuple.0);
+
+
     // tuple deconstruction
     let (x, y, z) = tuple;
     println!("Deconstructed tuple: {}, {}, {}\n", x, y, z);
