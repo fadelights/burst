@@ -90,11 +90,11 @@ fn _label_loop_example() {
 }
 
 fn _while_example() {
-    let mut number = 3;
+    let mut countdown = 3;
 
-    while number > 0 {
-        println!("{number}");
-        number -= 1;
+    while countdown > 0 {
+        println!("{countdown}");
+        countdown -= 1;
     }
 
     println!("LIFTOFF!")
