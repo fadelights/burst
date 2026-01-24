@@ -100,9 +100,13 @@ fn _while_example() {
 }
 
 fn _for_example() {
-    let names: [&str; 4] = ["Mani", "Armita", "Marina", "Saeid"];
-    for name in names {
-        println!("My name is {name}");
+    println!("Stop pitting the sciences against each other!");
+
+    let names: [&str; 4] = ["Biology", "Chemistry", "Physics", "Computer Science"];
+    let traits: [&str; 4] = ["interesting", "awesome", "", "fun"];
+
+    for (name_, trait_) in iter::zip(names, traits) {
+        println!("{0} is {1}", name_, trait_.to_uppercase());
     }
 }
 
