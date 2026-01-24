@@ -10,8 +10,7 @@ functions, each demonstrating a single construct.
 Uncomment the function in the body of `main` to see
 what it does. */
 
-use std::thread::sleep;
-use std::time::Duration;
+use std::{iter, thread, time};
 
 fn main() {
     // _branching_example(420);
@@ -47,7 +46,7 @@ fn _infinite_loop_example() {
     // `loop` only stops when interrupted by ^C (Ctrl + C) or `break`
     loop {
         println!("Again!");
-        sleep(Duration::from_secs(1));
+        thread::sleep(time::Duration::from_secs(1));
     }
 }
 
