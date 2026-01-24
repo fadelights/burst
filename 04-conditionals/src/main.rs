@@ -111,7 +111,13 @@ fn _for_example() {
 }
 
 fn _for_range_example() {
+    // a simple range example
     for i in 1..7 {
+        println!("{i}");
+    }
+
+    // using range with custom steps and reversing it
+    for i in (1..7).step_by(2).rev() {
         println!("{i}");
     }
 }
