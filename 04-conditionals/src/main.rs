@@ -35,7 +35,11 @@ fn _branching_example(x: i32) {
     }
 
     // you can use expressions in `if` blocks, so the value is returned
-    let message = if meaning_of_life == 42 { "Be safe." } else { "Blighted rat!" };
+    let message = if meaning_of_life == 42 {
+        "Be safe."
+    } else {
+        "Blighted rat!"
+    };
     println!("{message}");
 }
 
@@ -64,25 +68,25 @@ fn _break_loop_example(x: isize) {
 fn _label_loop_example() {
     let mut count = 0;
 
-    'counting_up: loop {
+    let final_count = 'counting_up: loop {
         println!("count: {count}");
         let mut remaining = 10;
 
         loop {
             println!("remaining: {remaining}");
-            if remaining == 7 {
+            if remaining == 9 {
                 break;
             }
-            if count == 5 {
-                break 'counting_up;
+            if count == 4 {
+                break 'counting_up count; // breaking out of labeled loop with a value
             }
             remaining -= 1;
         }
 
         count += 1;
-    }
+    };
 
-    println!("Final count: {count}");
+    println!("Final count: {final_count}");
 }
 
 fn _while_example() {
