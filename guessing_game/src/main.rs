@@ -18,7 +18,7 @@ and as such should be imported. */
 use rand::Rng;
 
 fn main() {
-    println!("Guess the number!"); // Semicolons are a thing in Rust!
+    println!("Guess the Number!"); // Semicolons are a thing in Rust!
 
     let secret = rand::thread_rng().gen_range(1..=100);
 
