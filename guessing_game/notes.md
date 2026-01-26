@@ -11,5 +11,6 @@ into every Rust program.
 `cargo add` or directly editing your `Cargo.toml` file. The next time
 `cargo build` is run, the dependencies will be automatically downloaded.
 - Running the `cargo doc --open` command will build documentation
+- Running the `cargo doc --std` command will give you the standard library docs
 provided by all your dependencies locally and open it in your browser.
 - The `Cargo.lock` file ensures reproducibility of builds.
