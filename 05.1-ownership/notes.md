@@ -1,6 +1,6 @@
 # Ownership
 
-Ownership is rust's most unique feature and enables Rust
+Ownership is Rust's most unique feature and enables Rust
 to make memory saftey guarantees, without needing a garbage collector.
 
 ## But What Is ‘Safety’?
