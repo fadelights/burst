@@ -214,6 +214,19 @@ v: -R, -W, -O (---)
     num2: +R,   , (R--)
     */
     ```
+
+### Places
+More generally, permissions are defined on **places** and not just variables.
+A place is anything you can put on the left-hand side of an assignment.
+Places include:
+* Variables, like `a`.
+* Dereferences of places, like `*a`.
+* Array accesses of places, like `a[0]`.
+* Fields of places, like `a.0` for tuples or `a.field` for structs (discussed next chapter).
+* Any combination of the above, like `*((*a)[0].1)`.
+
+That is why the permissions on `a` and `*a` vary.
+
 ### Data Lifespan
 As part of the _Pointer Safety Principle_:
 > _Data must outlive any references to it._
@@ -227,7 +240,7 @@ This property is enforced in two ways:
 - References are created with borrows (`&` and `&mut`) and used with dereferences (`*`), often implicitly
 - Rust's borrow checker enforces a system of permissions that ensures references are used safely:
     - All variables can read, own, and (optionally) write their data
-    - Creating a reference will transfer permissions from the borrowed **path** to the reference
+    - Creating a reference will transfer permissions from the borrowed **place** to the reference
     - Permissions are returned once the reference's lifetime has ended
     - Data must outlive all references that point to it
 - This system allows Rust to not need a garbage collector (increasing speed), while also avoiding undefined behavior (increasing safety)
