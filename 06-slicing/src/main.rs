@@ -32,7 +32,7 @@ fn main() {
 
     // even the order of operations matters here
     // if we were to print `a` before `c1`, an error would be raised
-    println!("c1: {:?}", c1);
+    println!("c1: {:?}", c1); // EOL of c1
     println!("a: {:?}", a);
 
     // you can still borrow immutable slices from a mutable array
@@ -50,4 +50,33 @@ fn main() {
 
     println!("a: {:?}", a);
     println!("d: {:?}", d);
+
+    /* in idiomatic Rust, you would usually use slice types in the function signature
+    that way, the callers can pass in arrays AND slices to the function */
+    let a = [11, 22, 33, 55, 66];
+
+    let total = sum(&a);
+    println!("total sum of all array elements: {total}");
+
+    let total = sum(&a[2..]);
+    println!("total sum of later array elements: {total}");
+
+    /* slices are "fat" pointers, not only do they store a pointer
+    to the start of the slice, but also the length of the slice */
+    // in Mehri's words: چاقی پوینتر :))
+
+    /* `&str` is basically just a `String` type slice
+    which is why string literalls are of the type `&str`.
+    they are a slice pointing to that specific point of the binary */
+}
+
+/* in idiomatic Rust, you would usually use slice types in the function signature
+that way, the callers can pass in array refs AND slices to the function */
+fn sum(a: &[i32]) -> i32 {
+    let mut total = 0;
+    for &num in a.iter() {
+        total += num;
+    }
+
+    total
 }
