@@ -248,3 +248,5 @@ This property is enforced in two ways:
 Refer to the Rust book's chapter on
 [Fixing Ownership Errors](https://rust-book.cs.brown.edu/ch04-03-fixing-ownership-errors.html)
 for a few example case studies.
+Refer to the [Ownership Recap](https://rust-book.cs.brown.edu/ch04-05-ownership-recap.html)
+for a quick recap.
